@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class StudentService {
@@ -21,11 +23,16 @@ public class StudentService {
 		return studentRepository.findAll();
 	}
 
+	public Student getStudent(Long studentId) {
+		return studentRepository.findById(studentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+				"student with id " + studentId + " does not exists", null));
+	}
+
 	public void addNewStudent(Student student) {
 		Optional<Student> studentByOptional = studentRepository.findStudentByEmail(student.getEmail());
 
 		if (studentByOptional.isPresent()) {
-			throw new IllegalStateException("email taken");
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "email already taken", null);
 		}
 
 		studentRepository.save(student);
@@ -34,7 +41,8 @@ public class StudentService {
 	public void deleteStudent(Long studentId) {
 		boolean exists = studentRepository.existsById(studentId);
 		if (!exists) {
-			throw new IllegalStateException("student with id " + studentId + " does not exists");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "student with id " + studentId + " does not exists",
+					null);
 		}
 		studentRepository.deleteById(studentId);
 	}
@@ -42,16 +50,17 @@ public class StudentService {
 	@Transactional
 	public void updateStudent(Long studentId, String name, String email) {
 		Student student = studentRepository.findById(studentId)
-				.orElseThrow(() -> new IllegalStateException("student with id " + studentId + " does not exists"));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"student with id " + studentId + " does not exists", null));
 
 		if (name != null && name.length() > 0 && !Objects.equals(student.getName(), name)) {
 			student.setName(name);
 		}
 
 		if (email != null && email.length() > 0 && !Objects.equals(student.getEmail(), email)) {
-			Optional<Student> studentByOptional = studentRepository.findStudentByEmail(student.getEmail());
+			Optional<Student> studentByOptional = studentRepository.findStudentByEmail(email);
 			if (studentByOptional.isPresent()) {
-				throw new IllegalStateException("email taken");
+				throw new ResponseStatusException(HttpStatus.CONFLICT, "email already taken", null);
 			}
 			student.setEmail(email);
 		}
