@@ -39,10 +39,9 @@ class StudentServiceTest {
 		List<Student> students = studentService.getStudents();
 
 		// then
-		// assertThat(students).asList().hasSizeGreaterThan(0);
 		Assertions.assertTrue(students.size() > 0);
 	}
-
+	
 	@Test
 	@DisplayName("StudentServiceTest.getStudentSuccess()")
 	void getStudentSuccess() {
