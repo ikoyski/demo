@@ -55,7 +55,7 @@ class StudentServiceTest {
 		Student student = studentService.getStudent(ID);
 
 		// then
-		Assertions.assertTrue(student.getId() == ID);
+		Assertions.assertTrue(student.getId().equals(ID));
 	}
 
 	@Test

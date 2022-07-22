@@ -31,11 +31,11 @@ class StudentTest {
 		student.setAge(AGE);
 
 		// then
-		Assertions.assertTrue(student.getId() == ID);
+		Assertions.assertTrue(student.getId().equals(ID));
 		Assertions.assertTrue(student.getName().equals(NAME));
 		Assertions.assertTrue(student.getEmail().equals(EMAIL));
-		Assertions.assertTrue(student.getDob() == DOB);
-		Assertions.assertTrue(student.getAge() == AGE);
+		Assertions.assertTrue(student.getDob().equals(DOB));
+		Assertions.assertTrue(student.getAge().equals(AGE));
 
 		Assertions.assertTrue(student.toString().equals(
 				"Student [id=" + ID + ", name=" + NAME + ", email=" + EMAIL + ", dob=" + DOB + ", age=" + AGE + "]"));
