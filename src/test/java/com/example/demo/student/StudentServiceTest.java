@@ -39,7 +39,8 @@ class StudentServiceTest {
 		List<Student> students = studentService.getStudents();
 
 		// then
-		Assertions.assertTrue(students.size() > 0);
+		Integer expectedSize = 1;
+		Assertions.assertTrue(expectedSize.equals(students.size()));
 	}
 	
 	@Test
