@@ -48,4 +48,45 @@ class StudentControllerTest {
 		verify(studentService).getStudent(ID);
 	}
 
+	@Test
+	@DisplayName("StudentControllerTest.requsterNewStudentSuccess()")
+	void requsterNewStudentSuccess() {
+		// given
+		Student student = new Student("Peter", "peter@gmail.com", LocalDate.of(2000, Month.JANUARY, 5));
+
+		// when
+		studentController.registerNewStudent(student);
+
+		// then
+		verify(studentService).addNewStudent(student);
+	}
+
+	@Test
+	@DisplayName("StudentControllerTest.deleteStudentSuccess()")
+	void deleteStudentSuccess() {
+		// given
+		final Long ID = 1L;
+
+		// when
+		studentController.deleteStudent(ID);
+
+		// then
+		verify(studentService).deleteStudent(ID);
+	}
+
+	@Test
+	@DisplayName("StudentControllerTest.updateStudentSuccess()")
+	void updateStudentSuccess() {
+		// given
+		final Long ID = 1L;
+		final String NAME = "Peter";
+		final String EMAIL = "peter@gmail.com";
+
+		// when
+		studentController.updateStudent(ID, NAME, EMAIL);
+
+		// then
+		verify(studentService).updateStudent(ID, NAME, EMAIL);
+	}
+
 }
