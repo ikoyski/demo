@@ -2,7 +2,6 @@ package com.example.demo.student;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.Period;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
