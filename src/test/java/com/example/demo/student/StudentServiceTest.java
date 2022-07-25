@@ -39,8 +39,7 @@ class StudentServiceTest {
 		List<Student> students = studentService.getStudents();
 
 		// then
-		Integer expectedSize = 1;
-		Assertions.assertTrue(expectedSize.equals(students.size()));
+		Assertions.assertEquals(1, students.size());
 	}
 
 	@Test
@@ -56,7 +55,7 @@ class StudentServiceTest {
 		Student student = studentService.getStudent(ID);
 
 		// then
-		Assertions.assertTrue(student.getId().equals(ID));
+		Assertions.assertEquals(student.getId(), ID);
 	}
 
 	@Test
