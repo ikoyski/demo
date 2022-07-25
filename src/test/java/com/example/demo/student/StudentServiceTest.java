@@ -95,8 +95,9 @@ class StudentServiceTest {
 		doReturn(studentOptional).when(studentRepository).findStudentByEmail(EMAIL);
 
 		// when and then
+		StudentRequest studentRequest = new StudentRequest("Peter", EMAIL, LocalDate.of(2000, Month.JANUARY, 5));
 		Assertions.assertThrows(ResponseStatusException.class, () -> studentService
-				.addNewStudent(new StudentRequest("Peter", EMAIL, LocalDate.of(2000, Month.JANUARY, 5))));
+				.addNewStudent(studentRequest));
 	}
 
 	@Test
