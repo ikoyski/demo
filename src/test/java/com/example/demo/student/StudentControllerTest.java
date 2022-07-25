@@ -1,12 +1,10 @@
 package com.example.demo.student;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,13 +50,14 @@ class StudentControllerTest {
 	@DisplayName("StudentControllerTest.requsterNewStudentSuccess()")
 	void requsterNewStudentSuccess() {
 		// given
-		Student student = new Student("Peter", "peter@gmail.com", LocalDate.of(2000, Month.JANUARY, 5));
+		StudentRequest studentRequest = new StudentRequest("Peter", "peter@gmail.com",
+				LocalDate.of(2000, Month.JANUARY, 5));
 
 		// when
-		studentController.registerNewStudent(student);
+		studentController.registerNewStudent(studentRequest);
 
 		// then
-		verify(studentService).addNewStudent(student);
+		verify(studentService).addNewStudent(studentRequest);
 	}
 
 	@Test

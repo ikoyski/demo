@@ -28,12 +28,17 @@ public class StudentService {
 				"student with id " + studentId + " does not exists", null));
 	}
 
-	public void addNewStudent(Student student) {
-		Optional<Student> studentByOptional = studentRepository.findStudentByEmail(student.getEmail());
+	public void addNewStudent(StudentRequest studentRequest) {
+		Optional<Student> studentByOptional = studentRepository.findStudentByEmail(studentRequest.getEmail());
 
 		if (studentByOptional.isPresent()) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "email already taken", null);
 		}
+
+		Student student = new Student();
+		student.setName(studentRequest.getName());
+		student.setEmail(studentRequest.getEmail());
+		student.setDob(studentRequest.getDob());
 
 		studentRepository.save(student);
 	}

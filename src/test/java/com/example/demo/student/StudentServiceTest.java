@@ -42,7 +42,7 @@ class StudentServiceTest {
 		Integer expectedSize = 1;
 		Assertions.assertTrue(expectedSize.equals(students.size()));
 	}
-	
+
 	@Test
 	@DisplayName("StudentServiceTest.getStudentSuccess()")
 	void getStudentSuccess() {
@@ -80,7 +80,7 @@ class StudentServiceTest {
 		doReturn(studentOptional).when(studentRepository).findStudentByEmail(EMAIL);
 
 		// when
-		studentService.addNewStudent(new Student("Peter", EMAIL, LocalDate.of(2000, Month.JANUARY, 5)));
+		studentService.addNewStudent(new StudentRequest("Peter", EMAIL, LocalDate.of(2000, Month.JANUARY, 5)));
 
 		// then
 		verify(studentRepository).findStudentByEmail(EMAIL);
@@ -96,8 +96,8 @@ class StudentServiceTest {
 		doReturn(studentOptional).when(studentRepository).findStudentByEmail(EMAIL);
 
 		// when and then
-		Assertions.assertThrows(ResponseStatusException.class,
-				() -> studentService.addNewStudent(new Student("Peter", EMAIL, LocalDate.of(2000, Month.JANUARY, 5))));
+		Assertions.assertThrows(ResponseStatusException.class, () -> studentService
+				.addNewStudent(new StudentRequest("Peter", EMAIL, LocalDate.of(2000, Month.JANUARY, 5))));
 	}
 
 	@Test

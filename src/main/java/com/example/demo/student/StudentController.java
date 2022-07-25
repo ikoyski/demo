@@ -33,8 +33,8 @@ public class StudentController {
 	}
 
 	@PostMapping(path = "api/v1/students")
-	public void registerNewStudent(@RequestBody Student student) {
-		studentService.addNewStudent(student);
+	public void registerNewStudent(@RequestBody StudentRequest studentRequest) {
+		studentService.addNewStudent(studentRequest);
 	}
 
 	@DeleteMapping(path = "api/v1/students/{studentId}")
