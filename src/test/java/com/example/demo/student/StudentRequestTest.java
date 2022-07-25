@@ -30,9 +30,9 @@ class StudentRequestTest {
 		Assertions.assertEquals(studentREquest.getName(), NAME);
 		Assertions.assertEquals(studentREquest.getEmail(), EMAIL);
 		Assertions.assertEquals(studentREquest.getDob(), DOB);
-		
-		Assertions.assertTrue(studentREquest.toString()
-				.equals("StudentRequest [name=" + NAME + ", email=" + EMAIL + ", dob=" + DOB + "]"));
+
+		Assertions.assertEquals(studentREquest.toString(),
+				"StudentRequest [name=" + NAME + ", email=" + EMAIL + ", dob=" + DOB + "]");
 	}
 
 }

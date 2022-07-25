@@ -37,8 +37,8 @@ class StudentTest {
 		Assertions.assertEquals(student.getDob(), DOB);
 		Assertions.assertEquals(student.getAge(), AGE);
 
-		Assertions.assertTrue(student.toString().equals(
-				"Student [id=" + ID + ", name=" + NAME + ", email=" + EMAIL + ", dob=" + DOB + ", age=" + AGE + "]"));
+		Assertions.assertEquals(student.toString(),
+				"Student [id=" + ID + ", name=" + NAME + ", email=" + EMAIL + ", dob=" + DOB + ", age=" + AGE + "]");
 	}
 
 }
