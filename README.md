@@ -1,4 +1,4 @@
-# Spring Boot Demo App 
+# Spring Boot Demo App
 
 This is a demo app practicing spring boot.
 
