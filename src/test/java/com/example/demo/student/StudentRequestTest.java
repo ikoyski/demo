@@ -27,10 +27,10 @@ class StudentRequestTest {
 		studentREquest.setDob(DOB);
 
 		// then
-		Assertions.assertTrue(studentREquest.getName().equals(NAME));
-		Assertions.assertTrue(studentREquest.getEmail().equals(EMAIL));
-		Assertions.assertTrue(studentREquest.getDob().equals(DOB));
-
+		Assertions.assertEquals(studentREquest.getName(), NAME);
+		Assertions.assertEquals(studentREquest.getEmail(), EMAIL);
+		Assertions.assertEquals(studentREquest.getDob(), DOB);
+		
 		Assertions.assertTrue(studentREquest.toString()
 				.equals("StudentRequest [name=" + NAME + ", email=" + EMAIL + ", dob=" + DOB + "]"));
 	}
