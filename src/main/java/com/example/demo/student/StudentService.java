@@ -14,6 +14,9 @@ public class StudentService {
 
 	public final StudentRepository studentRepository;
 
+	public final String ERROR_STUDENT_NOT_FOUND = "student with id {id} does not exists";
+	public final String ERROR_EMAIL_TAKEN = "email already taken";
+
 	public StudentService(StudentRepository studentRepository) {
 		super();
 		this.studentRepository = studentRepository;
@@ -25,14 +28,14 @@ public class StudentService {
 
 	public Student getStudent(Long studentId) {
 		return studentRepository.findById(studentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-				"student with id " + studentId + " does not exists", null));
+				ERROR_STUDENT_NOT_FOUND.replace("{id}", studentId.toString()), null));
 	}
 
 	public void addNewStudent(StudentRequest studentRequest) {
 		Optional<Student> studentByOptional = studentRepository.findStudentByEmail(studentRequest.getEmail());
 
 		if (studentByOptional.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.CONFLICT, "email already taken", null);
+			throw new ResponseStatusException(HttpStatus.CONFLICT, ERROR_EMAIL_TAKEN, null);
 		}
 
 		Student student = new Student();
@@ -46,8 +49,8 @@ public class StudentService {
 	public void deleteStudent(Long studentId) {
 		boolean exists = studentRepository.existsById(studentId);
 		if (!exists) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "student with id " + studentId + " does not exists",
-					null);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+					ERROR_STUDENT_NOT_FOUND.replace("{id}", studentId.toString()), null);
 		}
 		studentRepository.deleteById(studentId);
 	}
@@ -56,16 +59,16 @@ public class StudentService {
 	public void updateStudent(Long studentId, String name, String email) {
 		Student student = studentRepository.findById(studentId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-						"student with id " + studentId + " does not exists", null));
+						ERROR_STUDENT_NOT_FOUND.replace("{id}", studentId.toString()), null));
 
-		if (name != null && name.length() > 0 && !Objects.equals(student.getName(), name)) {
+		if (name != null && name.length() > 0 && !student.getName().equals(name)) {
 			student.setName(name);
 		}
 
-		if (email != null && email.length() > 0 && !Objects.equals(student.getEmail(), email)) {
+		if (email != null && email.length() > 0 && !student.getEmail().equals(email)) {
 			Optional<Student> studentByOptional = studentRepository.findStudentByEmail(email);
 			if (studentByOptional.isPresent()) {
-				throw new ResponseStatusException(HttpStatus.CONFLICT, "email already taken", null);
+				throw new ResponseStatusException(HttpStatus.CONFLICT, ERROR_EMAIL_TAKEN, null);
 			}
 			student.setEmail(email);
 		}
