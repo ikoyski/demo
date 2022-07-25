@@ -23,4 +23,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml sonar:sonar -Dsonar.projectKey=ikoyski_demo -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=0f3789a4a69eb2cf7fbaa4436ea4d24cedb29be6
+      run: mvn clean verify sonar:sonar -Dsonar.projectKey=ikoyski_demo -Dsonar.java.source=1.8 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=0f3789a4a69eb2cf7fbaa4436ea4d24cedb29be6
