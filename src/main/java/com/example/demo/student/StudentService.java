@@ -1,7 +1,6 @@
 package com.example.demo.student;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -14,8 +13,8 @@ public class StudentService {
 
 	public final StudentRepository studentRepository;
 
-	public final String ERROR_STUDENT_NOT_FOUND = "student with id {id} does not exists";
-	public final String ERROR_EMAIL_TAKEN = "email already taken";
+	public static final String ERROR_STUDENT_NOT_FOUND = "student with id {id} does not exists";
+	public static final String ERROR_EMAIL_TAKEN = "email already taken";
 
 	public StudentService(StudentRepository studentRepository) {
 		super();
