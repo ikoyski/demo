@@ -207,5 +207,26 @@ class StudentServiceTest {
 		// then
 		verify(studentRepository).findById(ID);
 	}
+	
+	@Test
+	@DisplayName("StudentServiceTest.updateStudentNotUpdatedBecauseSame()")
+	void updateStudentNotUpdatedBecauseSame() {
+		// given
+		final Long ID = 1L;
+		final String NAME = "Peter";
+		final String EMAIL = "peter@gmail.com";
+		Optional<Student> studentOptional = Optional
+				.ofNullable(new Student(ID, NAME, EMAIL, LocalDate.of(2000, Month.JANUARY, 5)));
+		doReturn(studentOptional).when(studentRepository).findById(ID);
+
+		Optional<Student> studentOptional2 = Optional.ofNullable(null);
+		doReturn(studentOptional2).when(studentRepository).findStudentByEmail(EMAIL);
+
+		// when
+		studentService.updateStudent(ID, NAME, EMAIL);
+
+		// then
+		verify(studentRepository).findById(ID);
+	}
 
 }
