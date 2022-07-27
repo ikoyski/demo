@@ -96,8 +96,7 @@ class StudentServiceTest {
 
 		// when and then
 		StudentRequest studentRequest = new StudentRequest("Peter", EMAIL, LocalDate.of(2000, Month.JANUARY, 5));
-		Assertions.assertThrows(ResponseStatusException.class, () -> studentService
-				.addNewStudent(studentRequest));
+		Assertions.assertThrows(ResponseStatusException.class, () -> studentService.addNewStudent(studentRequest));
 	}
 
 	@Test
@@ -175,6 +174,24 @@ class StudentServiceTest {
 		// when and then
 		Assertions.assertThrows(ResponseStatusException.class,
 				() -> studentService.updateStudent(ID, "Peter1", "peter1@gmail.com"));
+	}
+
+	@Test
+	@DisplayName("StudentServiceTest.updateStudentNotUpdated()")
+	void updateStudentNotUpdated() {
+		// given
+		final Long ID = 1L;
+		final String NAME = null;
+		final String EMAIL = null;
+		Optional<Student> studentOptional = Optional
+				.ofNullable(new Student(ID, NAME, EMAIL, LocalDate.of(2000, Month.JANUARY, 5)));
+		doReturn(studentOptional).when(studentRepository).findById(ID);
+
+		// when
+		studentService.updateStudent(ID, null, null);
+
+		// then
+		verify(studentRepository).findById(ID);
 	}
 
 }
