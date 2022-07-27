@@ -177,18 +177,32 @@ class StudentServiceTest {
 	}
 
 	@Test
-	@DisplayName("StudentServiceTest.updateStudentNotUpdated()")
-	void updateStudentNotUpdated() {
+	@DisplayName("StudentServiceTest.updateStudentNotUpdatedBecauseNull()")
+	void updateStudentNotUpdatedBecauseNull() {
 		// given
 		final Long ID = 1L;
-		final String NAME = null;
-		final String EMAIL = null;
 		Optional<Student> studentOptional = Optional
-				.ofNullable(new Student(ID, NAME, EMAIL, LocalDate.of(2000, Month.JANUARY, 5)));
+				.ofNullable(new Student(ID, "Peter", "peter@gmail.com", LocalDate.of(2000, Month.JANUARY, 5)));
 		doReturn(studentOptional).when(studentRepository).findById(ID);
 
 		// when
 		studentService.updateStudent(ID, null, null);
+
+		// then
+		verify(studentRepository).findById(ID);
+	}
+
+	@Test
+	@DisplayName("StudentServiceTest.updateStudentNotUpdatedBecauseEmpty()")
+	void updateStudentNotUpdatedBecauseEmpty() {
+		// given
+		final Long ID = 1L;
+		Optional<Student> studentOptional = Optional
+				.ofNullable(new Student(ID, "Peter", "peter@gmail.com", LocalDate.of(2000, Month.JANUARY, 5)));
+		doReturn(studentOptional).when(studentRepository).findById(ID);
+
+		// when
+		studentService.updateStudent(ID, "", "");
 
 		// then
 		verify(studentRepository).findById(ID);
