@@ -1,0 +1,199 @@
+openapi: 3.0.1
+info:
+  title: Spring Boot Demo App
+  description: This is a demo app practicing spring boot.
+  version: 1.0.0
+externalDocs:
+  description: Visit on github
+  url: https://github.com/ikoyski/demo
+servers:
+- url: http://localhost:8080/api/v1
+paths:
+  /students:
+    get:
+      summary: Get all students
+      description: Get all students
+      operationId: getAllStudents
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetStudents'
+    post:
+      summary: Add a student
+      description: Add a student
+      operationId: addStudent
+      requestBody:
+        description: Student object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddAStudent'
+        required: true
+      responses:
+        201:
+          description: created
+          content: {}
+        409:
+          description: email already taken
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: body
+  /students/{id}:
+    get:
+      summary: Find a student
+      description: Find a student
+      operationId: getAStudent
+      parameters:
+      - name: id
+        in: path
+        description: Id of student
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: sucess
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAStudent'
+        404:
+          description: student not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Update a student
+      description: Update a student
+      operationId: updateStudent
+      parameters:
+      - name: id
+        in: path
+        description: Id of the student
+        required: true
+        schema:
+          type: number
+      - name: name
+        in: query
+        description: Name of the student
+        schema:
+          type: string
+      - name: email
+        in: query
+        description: Email of the student
+        schema:
+          type: string
+      responses:
+        204:
+          description: success
+          content: {}
+        404:
+          description: student not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: email already taken
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete a student
+      description: Delete a student
+      operationId: deleteStudent
+      parameters:
+      - name: id
+        in: path
+        description: Id of the student
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: success
+          content: {}
+        404:
+          description: student not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    AddAStudent:
+      required:
+      - dob
+      - email
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the student
+          example: Peter
+        email:
+          type: string
+          description: Email of the student
+          example: peter@gmail.com
+        dob:
+          type: string
+          description: Date of birth of the student (yyyy-mm-dd)
+          example: 2005-01-05
+    GetAStudent:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Id of the student
+          example: 1.0
+        name:
+          type: string
+          description: Name of the student
+          example: Peter
+        email:
+          type: string
+          description: Email of the student
+          example: peter@gmail.com
+        dob:
+          type: string
+          description: Date of birth of the student (yyyy-mm-dd)
+          example: 2005-01-05
+        age:
+          type: number
+          description: Age of the student
+          example: 17.0
+    GetStudents:
+      type: array
+      items:
+        $ref: '#/components/schemas/GetAStudent'
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp
+          example: 2022-07-28T16:23:42.076+00:00
+        status:
+          type: string
+          description: Status
+          example: 4XX
+        error:
+          type: string
+          description: Error
+          example: Error type goes here
+        message:
+          type: string
+          description: Message
+          example: Error message goes here
+        path:
+          type: string
+          description: Path
+          example: /api/path/goes/here
