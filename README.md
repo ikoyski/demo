@@ -111,7 +111,7 @@ application.properties
 
 openapi.yml
 
-## Sonarcloud.io
+## SonarCloud
 
 https://sonarcloud.io/summary/overall?id=ikoyski_demo
 
