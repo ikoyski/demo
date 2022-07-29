@@ -5,7 +5,7 @@ This is a demo app practicing spring boot.
 Click on the downloaded Lombok-{version}.jar and select your IDE to install lombok
 Restart the IDE after successful Lombok installation
 
-### Pre-commit checks
+## Pre-commit checks
 
 In Windows run
 
@@ -21,7 +21,7 @@ In Linux/MacOs run
 
 This should build and run all the tests in the same way as on the continuous integration server.  If the build is successful, you can commit to git and push to Git.
 
-### Run the app
+## Run the app
 
 In Windows run
 
@@ -46,7 +46,7 @@ There is a `/health` endpoint that provides basic information about the applicat
 curl http://localhost:8080/actuator/health
 ```
 
-The endpoint should display the following -
+The endpoint should display the following.
 
 ```
 {
