@@ -25,13 +25,11 @@ public class StudentController {
 	}
 
 	@GetMapping(path = "api/v1/students")
-	@ResponseStatus(code = HttpStatus.OK, reason = "OK")
 	public List<Student> getStudents() {
 		return studentService.getStudents();
 	}
 
 	@GetMapping(path = "api/v1/students/{studentId}")
-	@ResponseStatus(code = HttpStatus.OK, reason = "OK")
 	public Student getStudent(@PathVariable("studentId") Long studentId) {
 		return studentService.getStudent(studentId);
 	}
