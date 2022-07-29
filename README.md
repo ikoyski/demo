@@ -103,14 +103,19 @@ This should return something like
 ]
 ```
 
+## Configuration file
+
+application.properties
+
 ## Swagger / Open API
 
-```
 openapi.yml
-```
 
 ## Sonarcloud.io
 
-```
 https://sonarcloud.io/summary/overall?id=ikoyski_demo
-```
+
+## DB
+
+Using H2 In-memory DB
+H2 console URL is http://localhost:8080/h2-console
